@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Hilo Rojo del Destino</title>
+    <!-- Tailwind CSS para diseño responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts para tipografía romántica y elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b0b0e;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .font-script {
+            font-family: 'Alex Brush', cursive;
+        }
+
+        /* Estilo y textura realista del pergamino antiguo */
+        .pergamino {
+            background: #fcf5e5;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, rgba(230, 210, 170, 0.4) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(160, 120, 80, 0.05) 32px);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.8),
+                inset 0 0 40px rgba(160, 110, 60, 0.25);
+            border: 1px solid rgba(200, 160, 110, 0.6);
+        }
+
+        /* Animación de apertura / despliegue del pergamino desde el centro */
+        @keyframes unfoldScroll {
+            0% {
+                transform: scaleY(0.02) scaleX(0.1);
+                opacity: 0;
+            }
+            50% {
+                transform: scaleY(0.02) scaleX(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scaleY(1) scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-unfold {
+            animation: unfoldScroll 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform-origin: center center;
+        }
+
+        /* Efecto de resplandor para el botón y elementos */
+        .btn-glow {
+            background: linear-gradient(135deg, #e63946 0%, #b7094c 100%);
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(230, 57, 70, 0.8);
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen flex flex-col items-center justify-center relative p-4 sm:p-6">
+
+    <!-- Fondo sutil de corazones / partículas parpadeantes -->
+    <canvas id="bgCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Contenedor principal de la experiencia -->
+    <main class="relative z-10 w-full max-w-xl flex flex-col items-center text-center">
+
+        <!-- SECCIÓN 1: El hilo rojo interactivo y textos iniciales -->
+        <div id="interactiveSection" class="w-full flex flex-col items-center transition-all duration-700">
+            
+            <!-- Frases dinámicas superiores inspiradas en el video -->
+            <div class="h-16 flex items-center justify-center mb-2 px-4">
+                <h1 id="subtitleText" class="text-xl sm:text-2xl md:text-3xl italic text-[#ff758c] font-light tracking-wide transition-opacity duration-500 drop-shadow-[0_2px_8px_rgba(255,117,140,0.4)]">
+                    Dicen que un hilo invisible une a dos personas.
+                </h1>
+            </div>
+
+            <!-- Lienzo donde se dibuja el hilo rojo, el lazo o la palabra "Mi amor" -->
+            <div class="w-full h-64 sm:h-72 my-2 relative flex items-center justify-center cursor-pointer" id="canvasContainer" title="¡Jala el hilo!">
+                <canvas id="threadCanvas" class="w-full h-full block"></canvas>
+            </div>
+
+            <!-- Botón / Indicación para jalar el hilo -->
+            <div class="mt-6">
+                <button id="pullBtn" class="btn-glow text-white font-serif tracking-widest text-lg sm:text-xl px-9 py-3.5 rounded-full cursor-pointer border border-red-400/40">
+                    Jala el hilo
+                </button>
+                <p class="text-xs text-neutral-400 mt-2 italic">También puedes arrastrar el hilo con el dedo o el mouse</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: El Pergamino Romántico (oculto inicialmente) -->
+        <div id="scrollSection" class="hidden w-full max-w-lg mx-auto animate-unfold mt-2 mb-4">
+            <div class="pergamino rounded-lg p-6 sm:p-10 text-[#3d2b1f] text-left relative shadow-2xl">
+                
+                <!-- Encabezado del pergamino -->
+                <div class="text-center mb-6 border-b border-[#c8a06e]/40 pb-4">
+                    <h2 class="font-script text-4xl sm:text-5xl text-[#b7094c]">Para Mi Amor</h2>
+                </div>
+
+                <!-- Cuerpo de la carta con scroll interno suave y elegante -->
+                <div class="max-h-[60vh] overflow-y-auto pr-2 space-y-4 text-base sm:text-lg leading-relaxed font-normal scrollbar-thin scrollbar-thumb-[#b7094c]/30">
+                    <p>
+                        No sé cuántas vueltas dio este hilo antes de encontrarte. No sé por cuántos caminos tuvo que pasar, cuántas veces se enredó en lugares donde no debía estar o cuánto tuvo que estirarse antes de llegar hasta ti. Quizás hubo momentos en los que parecía que nunca encontraría su destino, momentos en los que el camino se hacía difícil y todo parecía estar demasiado lejos.
+                    </p>
+                    <p>
+                        Pero nunca se rompió. Y ahora que te tengo en mi vida, me gusta pensar que siempre hubo un pequeño extremo de ese hilo que estaba unido a ti, esperando el momento indicado para encontrarnos.
+                    </p>
+                    <p>
+                        A veces pienso en todas las casualidades que tuvieron que suceder para que hoy estemos aquí. Todas las decisiones, los lugares, los días y los pequeños momentos que, sin saberlo, nos fueron acercando. Entre tantas personas, tantos caminos y tantas historias posibles, la vida hizo que nuestros caminos se cruzaran. Y si algo tengo claro, es que conocerte ha sido una de las cosas más bonitas que me han pasado.
+                    </p>
+                    <p>
+                        No quiero prometerte que nuestro hilo jamás se enredará, porque sé que habrá días complicados, diferencias, malos entendidos y momentos en los que quizás no sepamos cómo continuar. Pero sí quiero prometerte algo: no quiero soltarlo cuando las cosas se pongan difíciles.
+                    </p>
+                    <p>
+                        Si alguna vez nos enredamos, quiero que sepas que aquí estaré, dispuesta a sentarme contigo, tener paciencia y deshacer cada nudo juntos. No quiero que las dificultades sean el final de nuestra historia, sino oportunidades para aprender a entendernos, cuidarnos y querernos mejor.
+                    </p>
+                    <p>
+                        Quiero que recuerdes que no tienes que tener siempre todo resuelto, que no tienes que ser fuerte todo el tiempo y que tampoco tienes que encontrar solo la manera de solucionar las cosas. Somos dos personas construyendo algo bonito, y quiero que siempre sientas que puedes contar conmigo.
+                    </p>
+                    <p>
+                        Quizás no podamos controlar todos los caminos que nos esperan, ni saber cuántas vueltas dará nuestro hilo, pero me gustaría que, sin importar lo que venga, nunca olvidemos por qué comenzamos a caminar juntos.
+                    </p>
+                    <p>
+                        Y si algún día la vida nos pone a prueba, espero que recordemos este hilo, que recordemos todo lo que nos ha unido y que encontremos siempre una razón para seguir cuidando lo nuestro.
+                    </p>
+                    <p>
+                        Porque entre tantos caminos, yo tuve la suerte de encontrarte a ti. Y si pudiera volver a recorrer todos esos caminos desde el principio, conociendo el destino al que me llevarían, volvería a caminar cada uno de ellos, porque al final de todos estarías tú.
+                    </p>
+                    <p class="font-semibold text-[#b7094c] pt-2">
+                        No sé qué tan largo será nuestro hilo, pero mientras me permitas sostener un extremo y tú sostengas el otro, quiero seguir escribiendo nuestra historia contigo. ❤️
+                    </p>
+
+                    <!-- Firma -->
+                    <div class="mt-8 text-right pt-4 border-t border-[#c8a06e]/30">
+                        <p class="font-script text-3xl sm:text-4xl text-[#b7094c]">Tu persona favorita ❤️</p>
+                    </div>
+                </div>
+
+                <!-- Botón discreto para repetir -->
+                <div class="mt-6 text-center pt-3 border-t border-[#c8a06e]/30">
+                    <button id="resetBtn" class="text-xs sm:text-sm text-[#7c5b3b] hover:text-[#b7094c] underline transition-colors cursor-pointer">
+                        Volver a ver el hilo rojo
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        /**
+         * 1. FONDO DE PARTÍCULAS / ESTRELLAS / CORAZONES BRILLANTES
+         */
+        const bgCanvas = document.getElementById('bgCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let stars = [];
+
+        function initBg() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+            stars = [];
+            for (let i = 0; i < 50; i++) {
+                stars.push({
+                    x: Math.random() * bgCanvas.width,
+                    y: Math.random() * bgCanvas.height,
+                    size: Math.random() * 2 + 0.5,
+                    alpha: Math.random() * 0.7 + 0.2,
+                    speed: Math.random() * 0.2 + 0.05
+                });
+            }
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            stars.forEach(s => {
+                s.y -= s.speed;
+                if (s.y < 0) s.y = bgCanvas.height;
+                bgCtx.fillStyle = `rgba(255, 100, 130, ${s.alpha})`;
+                bgCtx.beginPath();
+                bgCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                bgCtx.fill();
+            });
+            requestAnimationFrame(animateBg);
+        }
+
+        /**
+         * 2. ANIMACIÓN DEL HILO ROJO Y EL LAZO (CANVAS INTERACTIVO)
+         */
+        const threadCanvas = document.getElementById('threadCanvas');
+        const ctx = threadCanvas.getContext('2d');
+        const canvasContainer = document.getElementById('canvasContainer');
+        const subtitleText = document.getElementById('subtitleText');
+        const pullBtn = document.getElementById('pullBtn');
+        const interactiveSection = document.getElementById('interactiveSection');
+        const scrollSection = document.getElementById('scrollSection');
+        const resetBtn = document.getElementById('resetBtn');
+
+        let animProgress = 0; // 0 (enredado/lazo) a 1 (estirado y desvanecido)
+        let isDragging = false;
+        let dragStartX = 0;
+        let currentPull = 0;
+        let phaseIndex = 0;
+        let time = 0;
+
+        const phrases = [
+            "Dicen que un hilo invisible une a dos personas.",
+            "Se puede enredar...",
+            "Se puede estirar...",
+            "Nunca se rompe.",
+            "Jala el hilo..."
+        ];
+
+        function resizeThreadCanvas() {
+            const rect = canvasContainer.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            threadCanvas.width = rect.width * dpr;
+            threadCanvas.height = rect.height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function drawThreadScene() {
+            const w = canvasContainer.clientWidth;
+            const h = canvasContainer.clientHeight;
+            ctx.clearRect(0, 0, w, h);
+
+            time += 0.03;
+            let pullOffset = currentPull + Math.sin(time) * 3;
+
+            ctx.save();
+            // Desvanecimiento general si se está jalando
+            ctx.globalAlpha = Math.max(0, 1 - animProgress * 1.2);
+
+            const cx = w / 2;
+            const cy = h / 2;
+
+            // Dibujar un lazo elegante / curvas entrelazadas que forman un corazón o moño central
+            ctx.beginPath();
+            ctx.strokeStyle = '#ff1e56';
+            ctx.lineWidth = 3.5;
+            ctx.shadowColor = '#ff4d6d';
+            ctx.shadowBlur = 15;
+
+            // Curva bezier simulando el hilo rojo enredado y el lazo del video
+            let startX = 40 + animProgress * 100;
+            let endX = w - 40 - animProgress * 100;
+
+            ctx.moveTo(startX, cy + pullOffset);
+            
+            // Lazo central entrelazado
+            let cp1x = cx - 80 - animProgress * 50;
+            let cp1y = cy - 90 + Math.sin(time * 2) * 10;
+            let cp2x = cx - 30;
+            let cp2y = cy + 80 - animProgress * 30;
+            
+            ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, cx, cy + pullOffset);
+
+            let cp3x = cx + 30;
+            let cp4x = cx + 80 + animProgress * 50;
+            let cp4y = cy - 90 - Math.sin(time * 2) * 10;
+
+            ctx.bezierCurveTo(cp3x, cy + 80 - animProgress * 30, cp4x, cp4y, endX, cy + pullOffset);
+
+            ctx.stroke();
+
+            // Pequeños destellos en los nudos del hilo
+            [startX, endX, cx].forEach(pt => {
+                ctx.beginPath();
+                ctx.arc(pt === cx ? cx : (pt === startX ? startX : endX), cy + pullOffset, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff8fa3';
+                ctx.shadowBlur = 12;
+                ctx.fill();
+            });
+
+            ctx.restore();
+        }
+
+        function loopThread() {
+            drawThreadScene();
+            if (animProgress < 1) {
+                requestAnimationFrame(loopThread);
+            } else {
+                // Transición a la carta
+                interactiveSection.classList.add('hidden');
+                scrollSection.classList.remove('hidden');
+            }
+        }
+
+        // Interacción de arrastre (Touch y Mouse)
+        canvasContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            dragStartX = e.clientX;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            let diff = e.clientX - dragStartX;
+            if (diff > 0) {
+                currentPull = diff;
+                if (diff > 120 && animProgress === 0) {
+                    triggerUnfurl();
+                }
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (isDragging && animProgress === 0) {
+                isDragging = false;
+                if (currentPull < 120) {
+                    currentPull = 0; // Regresa si no jaló suficiente
+                }
+            }
+        });
+
+        // Soporte táctil móvil
+        canvasContainer.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            dragStartX = e.touches[0].clientX;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            let diff = e.touches[0].clientX - dragStartX;
+            if (diff > 0) {
+                currentPull = diff;
+                if (diff > 100 && animProgress === 0) {
+                    triggerUnfurl();
+                }
+            }
+        });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+            if (currentPull < 100 && animProgress === 0) {
+                currentPull = 0;
+            }
+        });
+
+        pullBtn.addEventListener('click', () => {
+            triggerUnfurl();
+        });
+
+        function triggerUnfurl() {
+            if (animProgress > 0) return;
+            isDragging = false;
+            let startTime = null;
+            const duration = 1200;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let elapsed = timestamp - startTime;
+                animProgress = Math.min(elapsed / duration, 1);
+                drawThreadScene();
+
+                if (animProgress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    interactiveSection.classList.add('hidden');
+                    scrollSection.classList.remove('hidden');
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        // Botón para reiniciar
+        resetBtn.addEventListener('click', () => {
+            scrollSection.classList.add('hidden');
+            interactiveSection.classList.remove('hidden');
+            animProgress = 0;
+            currentPull = 0;
+            resizeThreadCanvas();
+            loopThread();
+        });
+
+        // Cambio automático de frases románticas superiores para imitar el video
+        let phraseInterval = setInterval(() => {
+            if (animProgress > 0) return;
+            phaseIndex = (phaseIndex + 1) % phrases.length;
+            subtitleText.style.opacity = 0;
+            setTimeout(() => {
+                subtitleText.textContent = phrases[phaseIndex];
+                subtitleText.style.opacity = 1;
+            }, 300);
+        }, 3500);
+
+        window.addEventListener('resize', () => {
+            initBg();
+            resizeThreadCanvas();
+        });
+
+        window.onload = () => {
+            initBg();
+            animateBg();
+            resizeThreadCanvas();
+            loopThread();
+        };
+    </script>
+</body>
+</html>
